@@ -1,0 +1,17 @@
+{
+    "name": "hexlet/code",
+    "description": "учебный проект",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bychkov Mikhail",
+            "email": "mikhail.bychkov@rtmis.ru"
+        }
+    ],
+    "require": {}
+}
