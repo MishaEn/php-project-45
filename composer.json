@@ -13,5 +13,8 @@
             "email": "mikhail.bychkov@rtmis.ru"
         }
     ],
-    "require": {}
+    "require": {},
+    "bin": [
+        "bin/brain-games"		    
+    ]
 }
