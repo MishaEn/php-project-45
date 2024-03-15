@@ -2,6 +2,6 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use function src\Cli\welcome;
+use function src\Engine\start;
 
-welcome();
+start();

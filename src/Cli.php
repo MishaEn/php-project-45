@@ -5,9 +5,39 @@ namespace src\Cli;
 use function cli\line;
 use function cli\prompt;
 
-function welcome(): void
+function welcome(): string
 {
-    line('Welcome to the Brain Game!');
-    $name = prompt('May I have your name?');
-    line("Hello, %s!", $name);
+    line('Добро пожаловать в "Игры разума"!');
+    $name = prompt('Как Вас зовут?');
+    line("Привет, %s!", $name);
+
+    return $name;
+}
+
+function gameSelector(): string
+{
+    $menu = array(
+        'even' => 'Игра на угадывание четного/нечетного',
+        'quit' => 'Выход',
+    );
+    
+    $choice = '';
+
+    while (true) {
+        $choice = \cli\menu($menu, null, 'Выбирите игру');
+        \cli\line();
+        break;
+    }
+
+    return $choice;
+}
+
+function answer(): string
+{
+    return prompt('Ваш ответ:');
+}
+
+function question(string $message): void
+{
+    line($message);
 }

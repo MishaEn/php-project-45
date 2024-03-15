@@ -7,7 +7,9 @@
             "Hexlet\\Code\\": "src/"
         },
         "files": [
-            "src/Cli.php"
+            "src/Cli.php",
+            "src/Engine.php",
+            "src/games/Even.php"
         ]
     },
     "authors": [
