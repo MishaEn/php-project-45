@@ -1,4 +1,5 @@
 <?php
+
 namespace src\games\Even;
 
 use function src\Cli\answer;
@@ -7,32 +8,39 @@ use function src\Cli\question;
 const YES_ANSWER_VARIANT = ['yes', 'y', 'yep', 'да', 'д', 'конечно', 'тупой вопрос конечно, да'];
 const NO_ANSWER_VARIANT = ['no', 'n', 'nope', 'нет', 'н', 'нет конечно', 'тупой вопрос конечно, нет'];
 
-function start($playerName)
+function start(string $playerName, int $roundCount): bool
 {
     $playerWin = false;
     $score = 0;
-    question($playerName , ', Ответе "да", если число чётное, или "нет", если число нечётное');
-    while ($score < 3) {
+
+    question($playerName, ', Ответе "да", если число чётное, или "нет", если число нечётное');
+
+    while ($score < $roundCount) {
         $randomNumber = rand(1, 100);
         question($randomNumber . ' чётное число?');
         $answer = answer();
-        
-        $fail = (isEven($randomNumber) && in_array($answer, NO_ANSWER_VARIANT)) || (!isEven($randomNumber) && in_array($answer, YES_ANSWER_VARIANT));
-        $success = (!isEven($randomNumber) && in_array($answer, NO_ANSWER_VARIANT)) || (isEven($randomNumber) && in_array($answer, YES_ANSWER_VARIANT));
+
+        $evnNo = (isEven($randomNumber) && in_array($answer, NO_ANSWER_VARIANT));
+        $noEvnYes = (!isEven($randomNumber) && in_array($answer, YES_ANSWER_VARIANT));
+        $noEvnNo = (!isEven($randomNumber) && in_array($answer, NO_ANSWER_VARIANT));
+        $evnYes = (isEven($randomNumber) && in_array($answer, YES_ANSWER_VARIANT));
+
+        $fail = $evnNo || $noEvnYes;
+        $success = $noEvnNo || $evnYes;
 
         if ($success) {
             $score++;
             question('Это правильный ответ!');
-        }    
+        }
 
         if ($fail) {
             question('Ответ не верный, Вы проиграли(');
             $playerWin = false;
             break;
-        } 
+        }
     }
 
-    if ($score === 3) {
+    if ($score === $roundCount) {
         $playerWin = true;
     }
 

@@ -5,9 +5,12 @@ namespace src\Engine;
 use function src\Cli\welcome;
 use function src\Cli\gameSelector;
 use function src\games\Even\start as evenStart;
+use function src\games\Calc\start as calcStart;
 use function src\Cli\question;
 
-function start():void
+const ROUND_COUNT = 3;
+
+function start(): void
 {
     $userName = welcome();
     $selected = gameSelector();
@@ -18,7 +21,9 @@ function start():void
 
     switch ($selected) {
         case 'even':
-            $reuslt = evenStart($userName);
+            $reuslt = evenStart($userName, ROUND_COUNT);
+        case 'calc':
+            $reuslt = calcStart($userName, ROUND_COUNT);
     }
 
     if ($reuslt) {
@@ -27,5 +32,5 @@ function start():void
 
     if (!$reuslt) {
         question('Попробуйте еще раз, ' . $userName);
-    } 
+    }
 }

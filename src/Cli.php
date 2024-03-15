@@ -18,9 +18,10 @@ function gameSelector(): string
 {
     $menu = array(
         'even' => 'Игра на угадывание четного/нечетного',
+        'calc' => 'Калькулятор',
         'quit' => 'Выход',
     );
-    
+
     $choice = '';
 
     while (true) {
