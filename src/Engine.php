@@ -22,8 +22,10 @@ function start(): void
     switch ($selected) {
         case 'even':
             $reuslt = evenStart($userName, ROUND_COUNT);
+            break;
         case 'calc':
             $reuslt = calcStart($userName, ROUND_COUNT);
+            break;
     }
 
     if ($reuslt) {
