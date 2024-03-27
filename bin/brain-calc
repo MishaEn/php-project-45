@@ -22,7 +22,7 @@ function start(string $playerName, int $roundCount): bool
         $randFirst = rand(1, 100);
         $randSecond = rand(1, 100);
 
-        $randSign = rand(0, 3);
+        $randSign = rand(0, 2);
 
         question('Question: ' . $randFirst . ' ' . SIGN[$randSign] . ' ' . $randSecond);
         $answer = answer();
