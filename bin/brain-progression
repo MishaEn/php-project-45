@@ -1,0 +1,83 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use function src\Cli\answer;
+use function src\Cli\question;
+use function src\Cli\welcome;
+
+$name = welcome();
+$roundCount = 3;
+const SIGN = ['-', '+', '*', '/'];
+
+function start(string $playerName, int $roundCount): bool
+{
+    $playerWin = false;
+    $score = 0;
+
+    question('What is the result of the expression?');
+
+    while ($score < $roundCount) {
+        $firstProgressionMember = rand(1, 100);
+        $progressionStep = rand(-5, 5);
+        $progressionLength = 10;
+        $unknownMemberNumber = rand(1, $progressionLength);
+        $correctAnswer = $firstProgressionMember + $progressionStep * $unknownMemberNumber;
+        $progression = [];
+
+        for ($count = 0; $count < $progressionLength; $count++) {
+            $progression[] = $firstProgressionMember + $progressionStep * $count;
+        }
+
+        $progression[$unknownMemberNumber] = '..';
+        $progressionString = implode(' ', $progression);
+
+        question('Question: ' . $progressionString);
+
+        $answer = answer();
+
+        $success = (int) $answer === $correctAnswer;
+
+        if ($success) {
+            $score++;
+            question('Correct!');
+        }
+
+        if (!$success) {
+            question('\'' . $answer . '\' is wrong answer ;(. Correct answer was \'' . $correctAnswer . '\'.');
+            question('Let\'s try again, ' . $playerName . '!');
+            break;
+        }
+    }
+
+    if ($score === $roundCount) {
+        $playerWin = true;
+    }
+
+    return $playerWin;
+}
+
+function calc(int $firstNumber, int $secondNumber, int $sign): int
+{
+    $result = 0;
+
+    switch ($sign) {
+        case 0:
+            $result = $firstNumber - $secondNumber;
+            break;
+        case 1:
+            $result = $firstNumber +  $secondNumber;
+            break;
+        case 2:
+            $result = $firstNumber * $secondNumber;
+            break;
+        case 3:
+            $result = $firstNumber / $secondNumber;
+            break;
+    }
+
+    return $result;
+}
+
+start($name, $roundCount);

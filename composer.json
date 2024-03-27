@@ -26,6 +26,7 @@
         "bin/brain-games",
         "bin/brain-even",
         "bin/brain-calc",
+        "bin/brain-progression",
         "bin/brain-nod"
     ],
     "require-dev": {

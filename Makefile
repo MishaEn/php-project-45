@@ -14,3 +14,5 @@ brain-calc:
 	./bin/brain-calc
 brain-nod:
 	./bin/brain-calc
+brain-progression:
+	./bin/brain-progression
