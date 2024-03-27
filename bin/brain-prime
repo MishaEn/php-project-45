@@ -16,28 +16,14 @@ function start(string $playerName, int $roundCount): bool
     $playerWin = false;
     $score = 0;
 
-    question('What is the result of the expression?');
+    question('Answer "yes" if given number is prime. Otherwise answer "no".');
 
     while ($score < $roundCount) {
-        $firstProgressionMember = rand(1, 100);
-        $progressionStep = rand(-5, 5);
-        $progressionLength = 10;
-        $unknownMemberNumber = rand(1, $progressionLength);
-        $correctAnswer = $firstProgressionMember + $progressionStep * $unknownMemberNumber;
-        $progression = [];
-
-        for ($count = 0; $count < $progressionLength; $count++) {
-            $progression[] = $firstProgressionMember + $progressionStep * $count;
-        }
-
-        $progression[$unknownMemberNumber] = '..';
-        $progressionString = implode(' ', $progression);
-
-        question('Question: ' . $progressionString);
-
+        $gameQuestion = rand(1, 100);
+        question('Question: ' . $gameQuestion);
         $answer = answer();
-
-        $success = (int) $answer === $correctAnswer;
+        $correctAnswer = isPrime($gameQuestion) ? 'yes' : 'no';
+        $success = $answer === $correctAnswer;
 
         if ($success) {
             $score++;
@@ -57,5 +43,19 @@ function start(string $playerName, int $roundCount): bool
 
     return $playerWin;
 }
+
+function isPrime(int $number)
+{
+    if ($number < 2) {
+        return false;
+    }
+    for ($count = 2; $count <= sqrt($number); $count++) {
+        if ($number % $count === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 start($name, $roundCount);
