@@ -11,7 +11,7 @@ $name = welcome();
 $roundCount = 3;
 const SIGN = ['-', '+', '*', '/'];
 
-function start(string $playerName, int $roundCount): bool
+function start(string $playerName, int $roundCount): void
 {
     $playerWin = false;
     $score = 0;
@@ -37,11 +37,9 @@ function start(string $playerName, int $roundCount): bool
         }
     }
 
-    if ($score === $roundCount) {
-        $playerWin = true;
+    if ($score > 0) {
+        question('Congratulations, ' . $playerName . '!');
     }
-
-    return $playerWin;
 }
 
 function isPrime(int $number)
