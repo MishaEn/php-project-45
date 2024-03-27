@@ -7,9 +7,9 @@ use function cli\prompt;
 
 function welcome(): string
 {
-    line('Добро пожаловать в "Игры разума"!');
-    $name = prompt('Как Вас зовут?');
-    line("Привет, %s!", $name);
+    line('Welcome to the Brain Games!');
+    $name = prompt('May I have your name?');
+    line("Hello, %s!", $name);
 
     return $name;
 }
@@ -35,7 +35,7 @@ function gameSelector(): string
 
 function answer(): string
 {
-    return prompt('Ваш ответ:');
+    return prompt('Your answer');
 }
 
 function question(string $message): void

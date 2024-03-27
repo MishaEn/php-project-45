@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use function src\Cli\answer;
+use function src\Cli\question;
+use function src\Cli\welcome;
+
+const YES_ANSWER_VARIANT = ['yes'];
+const NO_ANSWER_VARIANT = ['no'];
+
+$name = welcome();
+$roundCount = 3;
+function start(string $playerName, int $roundCount): void
+{
+    $playerWin = false;
+    $score = 0;
+
+    question('Answer "yes" if the number is even, otherwise answer "no".');
+
+    while ($score < $roundCount) {
+        $randomNumber = rand(1, 100);
+        question('Question: ' . $randomNumber);
+        $answer = answer();
+
+        $noEvnNo = (!isEven($randomNumber) && in_array($answer, NO_ANSWER_VARIANT));
+        $evnYes = (isEven($randomNumber) && in_array($answer, YES_ANSWER_VARIANT));
+
+        $success = $noEvnNo || $evnYes;
+
+        $correctAnswer = 'no';
+        if (isEven($randomNumber)) {
+            $correctAnswer = 'yes';
+        }
+
+        if (!in_array($answer, NO_ANSWER_VARIANT) && !in_array($answer, YES_ANSWER_VARIANT)) {
+            $success = false;
+        }
+
+        if ($success) {
+            $score++;
+            question('Correct!');
+        }
+
+        if (!$success) {
+            question('\'' . $answer . '\' is wrong answer ;(. Correct answer was \'' . $correctAnswer . '\'.');
+            question('Let\'s try again, ' . $playerName . '!');
+            break;
+        }
+    }
+
+    if ($score > 0) {
+        question('Congratulations, ' . $playerName . '!');
+    }
+}
+
+function isEven(int $number): bool
+{
+    return $number % 2 === 0;
+}
+
+start($name, $roundCount);
