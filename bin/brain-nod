@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use function src\Cli\answer;
+use function src\Cli\question;
+use function src\Cli\welcome;
+
+$name = welcome();
+$roundCount = 3;
+
+function start(string $playerName, int $roundCount): bool
+{
+    $playerWin = false;
+    $score = 0;
+
+    question('Find the greatest common divisor of given numbers.');
+
+    while ($score < $roundCount) {
+        $randFirst = rand(1, 100);
+        $randSecond = rand(1, 100);
+
+        $randSign = rand(0, 3);
+
+        question('Question: ' . $randFirst . ' ' . $randSecond);
+        $answer = answer();
+
+        $correctAnswer = calc($randFirst, $randSecond);
+
+        $success = (int) $answer === $correctAnswer;
+
+        if ($success) {
+            $score++;
+            question('Correct!');
+        }
+
+        if (!$success) {
+            question('\'' . $answer . '\' is wrong answer ;(. Correct answer was \'' . $correctAnswer . '\'.');
+            question('Let\'s try again, ' . $playerName . '!');
+            break;
+        }
+    }
+
+    if ($score === $roundCount) {
+        $playerWin = true;
+    }
+
+    return $playerWin;
+}
+
+function calc(int $a, int $b): int
+{
+    return ($a % $b) ? calc($b,$a % $b) : $b;
+}
+
+start($name, $roundCount);
