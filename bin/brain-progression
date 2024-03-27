@@ -16,7 +16,7 @@ function start(string $playerName, int $roundCount): void
     $playerWin = false;
     $score = 0;
 
-    question('What is the result of the expression?');
+    question('What number is missing in the progression?');
 
     while ($score < $roundCount) {
         $firstProgressionMember = rand(1, 100);
